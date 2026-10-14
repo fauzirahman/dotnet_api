@@ -27,6 +27,7 @@ namespace Market.Services
 
         public async Task<CategoryResponse> SaveAsync(Category category)
         {
+            category.Name = category.Name.Trim();
             try
             {
                 await _categoryRepository.AddAsync(category);
@@ -34,10 +35,9 @@ namespace Market.Services
                 
                 return new CategoryResponse(category);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Do some logging stuff
-                return new CategoryResponse($"An error occurred when saving the category: {ex.Message}");
+                return new CategoryResponse("The category could not be saved.");
             }
         }
 
@@ -48,7 +48,7 @@ namespace Market.Services
             if (existingCategory == null)
                 return new CategoryResponse("Category not found.");
 
-            existingCategory.Name = category.Name;
+            existingCategory.Name = category.Name.Trim();
 
             try
             {
@@ -57,10 +57,9 @@ namespace Market.Services
 
                 return new CategoryResponse(existingCategory);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Do some logging stuff
-                return new CategoryResponse($"An error occurred when updating the category: {ex.Message}");
+                return new CategoryResponse("The category could not be updated.");
             }
         }
 
@@ -78,10 +77,13 @@ namespace Market.Services
 
                 return new CategoryResponse(existingCategory);
             }
-            catch (Exception ex)
+            catch (Microsoft.EntityFrameworkCore.DbUpdateException)
             {
-                // Do some logging stuff
-                return new CategoryResponse($"An error occurred when deleting the category: {ex.Message}");
+                return new CategoryResponse("The category cannot be deleted while products use it.");
+            }
+            catch (Exception)
+            {
+                return new CategoryResponse("The category could not be deleted.");
             }
         }
     }

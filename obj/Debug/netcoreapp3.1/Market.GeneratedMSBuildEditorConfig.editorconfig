@@ -1,0 +1,5 @@
+is_global = true
+build_property.RootNamespace = Market
+build_property.ProjectDir = /home/fauzi-rahman/projects/dot_net/dotnet_api/
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

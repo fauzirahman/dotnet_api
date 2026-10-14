@@ -1,32 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "/opt/lampp/htdocs/Market/Market.csproj": {}
+    "/opt/lampp/htdocs/dotnet_api/Market.csproj": {}
   },
   "projects": {
-    "/opt/lampp/htdocs/Market/Market.csproj": {
+    "/opt/lampp/htdocs/dotnet_api/Market.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/opt/lampp/htdocs/Market/Market.csproj",
+        "projectUniqueName": "/opt/lampp/htdocs/dotnet_api/Market.csproj",
         "projectName": "Market",
-        "projectPath": "/opt/lampp/htdocs/Market/Market.csproj",
-        "packagesPath": "/home/fauzi/.nuget/packages/",
-        "outputPath": "/opt/lampp/htdocs/Market/obj/",
+        "projectPath": "/opt/lampp/htdocs/dotnet_api/Market.csproj",
+        "packagesPath": "/home/fauzi-rahman/.nuget/packages/",
+        "outputPath": "/opt/lampp/htdocs/dotnet_api/obj/",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "/usr/share/dotnet/sdk/NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "/home/fauzi/.nuget/NuGet/NuGet.Config"
+          "/home/fauzi-rahman/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net8.0"
         ],
         "sources": {
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "net8.0": {
+            "targetAlias": "net8.0",
             "projectReferences": {}
           }
         },
@@ -37,33 +35,30 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net8.0": {
+          "targetAlias": "net8.0",
           "dependencies": {
-            "AutoMapper": {
-              "target": "Package",
-              "version": "[9.0.0, )"
-            },
-            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
-              "target": "Package",
-              "version": "[7.0.0, )"
-            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[8.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[8.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[8.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[8.0.11, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[8.0.11, )"
             }
           },
           "imports": [
@@ -72,7 +67,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -84,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.131/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

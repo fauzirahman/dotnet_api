@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Market.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Market
 {
@@ -21,7 +22,7 @@ namespace Market
             using(var scope = host.Services.CreateScope())
             using(var context = scope.ServiceProvider.GetService<AppDbContext>())
             {
-                context.Database.EnsureCreated();
+                context.Database.Migrate();
             }
 
             host.Run();

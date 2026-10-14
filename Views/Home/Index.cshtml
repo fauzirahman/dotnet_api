@@ -1,8 +1,108 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Market";
+}
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<main class="market-shell">
+    <header class="masthead">
+        <a class="wordmark" asp-controller="Home" asp-action="Index"><span class="wordmark-mark">M</span>market</a>
+        <span class="masthead-label">GROCERY COMMERCE / OPERATIONS</span>
+        <span id="connection-state" class="connection-state"><i></i> Connecting</span>
+    </header>
+
+    <section id="auth-view" class="auth-layout">
+        <div class="intro-copy">
+            <p class="eyebrow">A better way to keep market moving</p>
+            <h1>Good goods.<br /><em>Clear business.</em></h1>
+            <p class="intro-note">Browse the catalog, place an order, or sign in to manage store operations.</p>
+            <div class="intro-rule"><span>01</span><span>Fresh catalog</span><span>02</span><span>Live stock</span><span>03</span><span>Order reports</span></div>
+        </div>
+
+        <div class="auth-panel">
+            <div class="auth-heading"><div><p class="eyebrow">Your Market account</p><h2 id="auth-title">Welcome back</h2></div>
+                <div class="segmented" role="tablist"><button type="button" class="selected" data-auth-mode="login">Sign in</button><button type="button" data-auth-mode="register">Create account</button></div>
+            </div>
+            <form id="auth-form" class="form-stack">
+                <label>Email address<input name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+                <label>Password<input name="password" type="password" autocomplete="current-password" required minlength="10" maxlength="128" /></label>
+                <button class="button button-dark" type="submit" id="auth-submit">Sign in <span aria-hidden="true">→</span></button>
+            </form>
+            <details class="bootstrap-box">
+                <summary>Set up the first administrator</summary>
+                <form id="bootstrap-form" class="form-stack compact-stack">
+                    <label>Admin email<input name="email" type="email" required maxlength="254" /></label>
+                    <label>Password<input name="password" type="password" required minlength="10" maxlength="128" /></label>
+                    <label>Setup key<input name="bootstrapKey" type="password" required /></label>
+                    <button class="button button-outline" type="submit">Create administrator</button>
+                </form>
+            </details>
+            <p id="auth-message" class="message" role="status" aria-live="polite"></p>
+        </div>
+    </section>
+
+    <section class="public-catalog">
+        <div class="section-heading"><div><p class="eyebrow">Market today</p><h2>Available goods</h2></div><span class="quiet-label">Catalog</span></div>
+        <div id="public-products" class="product-list"></div>
+    </section>
+
+    <section id="app-view" class="app-view" hidden>
+        <div class="app-heading">
+            <div><p class="eyebrow" id="role-label">MARKET</p><h1 id="page-title">Market overview</h1></div>
+            <div class="account-tools"><span id="account-email"></span><button class="icon-button" id="logout-button" type="button" title="Sign out" aria-label="Sign out">↗</button></div>
+        </div>
+
+        <section id="customer-workspace" hidden>
+            <div class="store-toolbar"><div><p class="eyebrow">Today's market</p><h2>Shop the catalog</h2></div><span id="catalog-count" class="quiet-label"></span></div>
+            <div class="customer-layout">
+                <div id="store-products" class="product-list"></div>
+                <aside class="cart-panel"><div class="section-heading"><h2>Your basket</h2><span id="cart-count">0</span></div><div id="cart-items"></div><div class="cart-total"><span>Order total</span><strong id="cart-total">$0.00</strong></div><label>Payment<select id="payment-method"><option value="COD">Cash on delivery</option></select></label><button id="checkout-button" class="button button-dark" type="button">Place order <span aria-hidden="true">→</span></button><p id="cart-message" class="message" role="status"></p></aside>
+            </div>
+            <div class="section-heading orders-heading"><div><p class="eyebrow">Your account</p><h2>Recent orders</h2></div></div>
+            <div id="customer-orders" class="table-wrap"></div>
+        </section>
+
+        <section id="staff-workspace" hidden>
+            <div class="metric-strip">
+                <div><span>Open orders</span><strong id="metric-open">—</strong></div>
+                <div><span>Low stock</span><strong id="metric-low">—</strong></div>
+                <div><span>Paid revenue</span><strong id="metric-revenue">—</strong></div>
+            </div>
+            <nav class="work-tabs" aria-label="Market workspace">
+                <button type="button" class="selected" data-panel="orders-panel">Orders</button>
+                <button type="button" data-panel="catalog-panel">Catalog</button>
+                <button type="button" data-panel="reports-panel">Reports</button>
+            </nav>
+            <section id="orders-panel" class="work-panel"><div class="section-heading"><div><p class="eyebrow">Fulfillment</p><h2>Order queue</h2></div><button class="button button-outline refresh-button" type="button">Refresh</button></div><div id="staff-orders" class="table-wrap"></div></section>
+            <section id="catalog-panel" class="work-panel" hidden>
+                <div class="section-heading"><div><p class="eyebrow">Inventory</p><h2>Catalog & stock</h2></div></div>
+                <div class="catalog-management">
+                    <form id="product-form" class="edit-form">
+                        <input type="hidden" name="id" />
+                        <h3 id="product-form-title">Add product</h3>
+                        <label>Product name<input name="name" required maxlength="50" /></label>
+                        <div class="form-row"><label>Price<input name="price" type="number" min="0.01" step="0.01" required /></label><label>Stock<input name="stockQuantity" type="number" min="0" step="1" required /></label></div>
+                        <div class="form-row"><label>Pack size<input name="quantityInPackage" type="number" min="1" max="32767" value="1" required /></label><label>Unit<select name="unitOfMeasurement"><option value="1">Each</option><option value="2">Milligram</option><option value="3">Gram</option><option value="4">Kilogram</option><option value="5">Liter</option></select></label></div>
+                        <label>Category<select name="categoryId" id="product-category" required></select></label>
+                        <div class="form-actions"><button class="button button-dark" type="submit">Save product</button><button class="button button-text" id="reset-product" type="button">Clear</button></div>
+                        <p id="product-message" class="message" role="status"></p>
+                    </form>
+                    <div class="catalog-side"><form id="category-form" class="inline-form"><label>New category<input name="name" required maxlength="30" /></label><button class="button button-outline" type="submit">Add category</button></form><div id="admin-products" class="table-wrap"></div></div>
+                </div>
+            </section>
+            <section id="reports-panel" class="work-panel" hidden>
+                <div class="section-heading"><div><p class="eyebrow">Business intelligence</p><h2>Reports</h2></div></div>
+                <div class="report-filters"><label>From<input id="report-from" type="date" /></label><label>To<input id="report-to" type="date" /></label><label>Low stock at<input id="report-threshold" type="number" min="0" value="5" /></label><button class="button button-dark" id="run-reports" type="button">Run reports</button></div>
+                <div id="report-summary" class="report-summary"></div>
+                <div class="report-columns"><section><h3>Stock position</h3><div id="stock-report" class="table-wrap"></div></section><section><h3>Sales by day</h3><div id="sales-report" class="table-wrap"></div></section></div>
+                <section class="report-orders"><h3>Orders by status</h3><div id="order-report" class="table-wrap"></div></section>
+            </section>
+        </section>
+        <p id="app-message" class="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <footer class="page-footer"><span>MARKET / GROCERY COMMERCE</span><span>Inventory · Orders · Reports</span></footer>
+</main>
+
+@section Scripts {
+    <script src="~/js/market.js" asp-append-version="true"></script>
+}
