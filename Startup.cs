@@ -17,6 +17,8 @@ using Market.Domain.Services;
 using Market.Persistence.Contexts;
 using Market.Persistence.Repositories;
 using Market.Services;
+using Microsoft.OpenApi.Models;
+using Market.Extension;
 
 namespace Market
 {
@@ -35,6 +37,18 @@ namespace Market
         public void ConfigureServices(IServiceCollection services)
         {            
             services.AddMvc(options => options.EnableEndpointRouting = false).AddNewtonsoftJson();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo { Title = "Market API", Version = "v1" });
+                options.AddSecurityDefinition("MarketCookie", new OpenApiSecurityScheme
+                {
+                    Name = "Market.Auth",
+                    Type = SecuritySchemeType.ApiKey,
+                    In = ParameterLocation.Cookie,
+                    Description = "Cookie sesi yang diterbitkan oleh /api/auth/login atau /api/auth/register."
+                });
+                options.OperationFilter<AuthorizeOperationFilter>();
+            });
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
@@ -87,6 +101,15 @@ namespace Market
 
             app.UseStaticFiles();
             app.UseHttpsRedirection();
+            if (env.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Market API v1");
+                    options.RoutePrefix = "swagger";
+                });
+            }
             app.UseAuthentication();
             app.UseAuthorization();
             

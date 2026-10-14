@@ -298,3 +298,8 @@
 /opt/lampp/htdocs/dotnet_api/obj/Debug/net8.0/Market.pdb
 /opt/lampp/htdocs/dotnet_api/obj/Debug/net8.0/Market.genruntimeconfig.cache
 /opt/lampp/htdocs/dotnet_api/obj/Debug/net8.0/ref/Market.dll
+/opt/lampp/htdocs/dotnet_api/bin/Debug/net8.0/Microsoft.OpenApi.dll
+/opt/lampp/htdocs/dotnet_api/bin/Debug/net8.0/Swashbuckle.AspNetCore.Swagger.dll
+/opt/lampp/htdocs/dotnet_api/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/opt/lampp/htdocs/dotnet_api/bin/Debug/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/opt/lampp/htdocs/dotnet_api/obj/Debug/net8.0/Market.MvcApplicationPartsAssemblyInfo.cs

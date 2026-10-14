@@ -68,6 +68,8 @@ dotnet run
 
 Profil `Market` membuka HTTPS di `https://localhost:5001` dan HTTP di `http://localhost:5000`. Database harus dapat diakses saat aplikasi mulai karena migrasi EF Core diterapkan pada startup. Jika sertifikat HTTPS pengembangan belum dipercaya, gunakan HTTP lokal atau percayai sertifikat development .NET.
 
+Dokumentasi interaktif endpoint tersedia di `https://localhost:5001/swagger` selama aplikasi berjalan dalam environment `Development`. Login atau registrasi melalui Swagger akan membuat cookie sesi untuk request berikutnya; endpoint terproteksi ditandai dengan skema `Market.Auth`.
+
 ### Buat Admin Pertama
 
 1. Atur `Bootstrap:AdminKey` seperti pada konfigurasi di atas.
